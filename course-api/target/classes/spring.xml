@@ -5,8 +5,25 @@
 	<bean id="triangle" class="io.learning.spring.Triangle">
 		<!--<property name="type" value="Scalen" />-->
 		<constructor-arg index="1" type="int" value="10"></constructor-arg>
-		<constructor-arg index="0" type="java.lang.String" value="Scalen"></constructor-arg>
+		<constructor-arg index="0" type="java.lang.String" value="Scalen"></constructor-arg>	
+	</bean>
+	<bean id="pointTriangle" class="io.learning.spring.PointTriangle">
+		<property name="pointA" ref="point0"/>
+		<property name="pointB" ref="point1"/>
+		<property name="pointC" ref="point2"/>
+	</bean>
+	<bean id="point0" class="io.learning.spring.Point">
+		<property name="x" value="0" />
+		<property name="y" value="0" />
+	</bean>
+	<bean id="point1" class="io.learning.spring.Point">
+		<property name="x" value="0" />
+		<property name="y" value="-20" />
+	</bean>
+	<bean id="point2" class="io.learning.spring.Point">
+		<property name="x" value="20" />
+		<property name="y" value="0" />
+	</bean>
 		
-		</bean>
 </beans>
                   
