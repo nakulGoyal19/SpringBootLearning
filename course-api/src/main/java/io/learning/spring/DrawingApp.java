@@ -16,7 +16,7 @@ public class DrawingApp {
 		Triangle t=(Triangle) context.getBean("triangle");
 		t.draw();
 		
-		PointTriangle pt=(PointTriangle) context.getBean("pointTriangle");
+		PointTriangle pt=(PointTriangle) context.getBean("triangle-alias-p");
 		pt.draw();
 		((AbstractApplicationContext) context).close();
 	}
