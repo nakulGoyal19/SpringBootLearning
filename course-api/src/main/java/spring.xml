@@ -22,12 +22,30 @@
 			</bean>
 		</property>
 	</bean>
+
+	<alias name="pointTriangle" alias="triangle-alias-p"/>
+	
+	<bean id="triangleList" class="io.learning.spring.PointTriangleUsingList">
+		<property name="points">
+			<list>
+				<ref bean="zeroPoint"/>
+				<ref bean="point1l"/>
+				<ref bean="point2l"/>
+			</list>
+		</property>
+	</bean>
 	<bean id="zeroPoint" class="io.learning.spring.Point">
 		<property name="x" value="0" />
 		<property name="y" value="0" />
 	</bean>
-	
-	<alias name="pointTriangle" alias="triangle-alias-p"/>
+	<bean id="point1l" class="io.learning.spring.Point">
+		<property name="x" value="0" />
+		<property name="y" value="-20" />
+	</bean>
+	<bean id="point2l" class="io.learning.spring.Point">
+		<property name="x" value="20" />
+		<property name="y" value="0" />
+	</bean>
 		
 </beans>
                   

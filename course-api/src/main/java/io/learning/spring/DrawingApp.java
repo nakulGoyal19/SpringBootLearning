@@ -18,7 +18,12 @@ public class DrawingApp {
 		
 		PointTriangle pt=(PointTriangle) context.getBean("triangle-alias-p");
 		pt.draw();
+		
+		PointTriangleUsingList ptl=(PointTriangleUsingList) context.getBean("triangleList");
+		ptl.draw();
 		((AbstractApplicationContext) context).close();
+		
+		
 	}
 
 }
