@@ -25,6 +25,21 @@
 
 	<alias name="pointTriangle" alias="triangle-alias-p"/>
 	
+	<bean id="pointTriangleAutoWiring" class="io.learning.spring.PointTriangle" autowire="byName"/>
+	<bean id="pointA" class="io.learning.spring.Point">
+		<property name="x" value="0" />
+		<property name="y" value="0" />
+	</bean>
+	<bean id="pointB" class="io.learning.spring.Point">
+		<property name="x" value="0" />
+		<property name="y" value="-20" />
+	</bean>
+	<bean id="pointC" class="io.learning.spring.Point">
+		<property name="x" value="20" />
+		<property name="y" value="0" />
+	</bean>
+	
+	
 	<bean id="triangleList" class="io.learning.spring.PointTriangleUsingList">
 		<property name="points">
 			<list>
