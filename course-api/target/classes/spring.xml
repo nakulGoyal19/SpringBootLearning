@@ -7,7 +7,7 @@
 		<constructor-arg index="1" type="int" value="10"></constructor-arg>
 		<constructor-arg index="0" type="java.lang.String" value="Scalen"></constructor-arg>	
 	</bean>
-	<bean id="pointTriangle" class="io.learning.spring.PointTriangle" name="triangle-p">
+	<bean id="pointTriangle" class="io.learning.spring.PointTriangle" name="triangle-p" scope="prototype">
 		<property name="pointA" ref="zeroPoint"/>
 		<property name="pointB">
 			<bean class="io.learning.spring.Point">
@@ -25,7 +25,7 @@
 
 	<alias name="pointTriangle" alias="triangle-alias-p"/>
 	
-	<bean id="pointTriangleAutoWiring" class="io.learning.spring.PointTriangle" autowire="byName"/>
+	<bean id="pointTriangleAutoWiring" class="io.learning.spring.PointTriangle" autowire="byName" scope="singleton"/>
 	<bean id="pointA" class="io.learning.spring.Point">
 		<property name="x" value="0" />
 		<property name="y" value="0" />
@@ -40,7 +40,7 @@
 	</bean>
 	
 	
-	<bean id="triangleList" class="io.learning.spring.PointTriangleUsingList">
+	<bean id="triangleList" class="io.learning.spring.PointTriangleUsingList" scope="prototype">
 		<property name="points">
 			<list>
 				<ref bean="zeroPoint"/>
@@ -49,15 +49,15 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="zeroPoint" class="io.learning.spring.Point">
+	<bean id="zeroPoint" class="io.learning.spring.Point" scope="prototype">
 		<property name="x" value="0" />
 		<property name="y" value="0" />
 	</bean>
-	<bean id="point1l" class="io.learning.spring.Point">
+	<bean id="point1l" class="io.learning.spring.Point" scope="prototype">
 		<property name="x" value="0" />
 		<property name="y" value="-20" />
 	</bean>
-	<bean id="point2l" class="io.learning.spring.Point">
+	<bean id="point2l" class="io.learning.spring.Point" scope="prototype">
 		<property name="x" value="20" />
 		<property name="y" value="0" />
 	</bean>
