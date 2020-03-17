@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mockTest.TestCalculator" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-12T08:45:27" hostname="sysadm-Latitude-3460" time="0.004">
+<testsuite name="com.mockTest.TestCalculator" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-12T08:49:32" hostname="sysadm-Latitude-3460" time="0.025">
   <properties/>
-  <testcase name="testEvaluate" classname="com.mockTest.TestCalculator" time="0.004"/>
+  <testcase name="testPerform" classname="com.mockTest.TestCalculator" time="0.024"/>
+  <testcase name="testEvaluate" classname="com.mockTest.TestCalculator" time="0.0"/>
   <system-out><![CDATA[Starting test part ..
+Ending test part ..
+Starting test part ..
 Number format is wrong
 Ending test part ..
 ]]></system-out>
