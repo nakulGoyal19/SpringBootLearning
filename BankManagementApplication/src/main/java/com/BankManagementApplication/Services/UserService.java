@@ -1,5 +1,6 @@
 package com.BankManagementApplication.Services;
 
+import com.BankManagementApplication.Exception.DataNotFoundException;
 import com.BankManagementApplication.Repositories.UserRepository;
 import com.BankManagementApplication.Models.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class UserService {
     public List<UserProfile> getAllUsersData(){
         List<UserProfile> users=new ArrayList<>();
         userRepository.findAll().forEach(users::add);
+        if(users.size()==0)
+            throw new DataNotFoundException("No Data Available");
         return users;
     }
 
@@ -30,16 +33,22 @@ public class UserService {
     }
 
     public UserProfile getUserByAccountNumber(String accountNumber){
-        return userRepository.findByAccountNumber(accountNumber);
+        UserProfile up = userRepository.findByAccountNumber(accountNumber);
+        if(up == null)
+            throw new DataNotFoundException("No account with this account number");
+        return up;
     }
 
     public List<UserProfile> getUserByFirstName(String firstName) {
-        return userRepository.findAllByFirstName(firstName);
+        List<UserProfile> up = userRepository.findAllByFirstName(firstName);
+        if(up.size() == 0)
+            throw new DataNotFoundException("No users with this first name.");
+        return up;
     }
 
     public String credit(String accountNumber,Integer amount){
 
-       UserProfile temp = userRepository.findByAccountNumber(accountNumber);
+       UserProfile temp = this.getUserByAccountNumber(accountNumber);
        temp.setBalance(temp.getBalance()+amount);
        userRepository.save(temp);
        return "credit successful";
@@ -47,7 +56,7 @@ public class UserService {
 
     public String debit(String accountNumber,Integer amount){
 
-        UserProfile temp = userRepository.findByAccountNumber(accountNumber);
+        UserProfile temp = this.getUserByAccountNumber(accountNumber);
         if(temp.getBalance()<amount)
             return "Insufficient balance";
         temp.setBalance(temp.getBalance()-amount);
@@ -56,12 +65,9 @@ public class UserService {
     }
 
     public String deleteUser(String accountNumber) {
-        if(userRepository.findByAccountNumber(accountNumber)==null){
-            return "No User with this account number";
-        }
+        UserProfile temp = this.getUserByAccountNumber(accountNumber);
         userRepository.deleteById(accountNumber);
         return "Successfully deleted";
     }
-
 
 }

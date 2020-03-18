@@ -1,5 +1,6 @@
 package com.BankManagementApplication.Services;
 
+import com.BankManagementApplication.Exception.DataNotFoundException;
 import com.BankManagementApplication.Models.Operation;
 import com.BankManagementApplication.Models.UserProfile;
 import com.BankManagementApplication.Repositories.OperationRepository;
@@ -42,6 +43,8 @@ public class OperationService {
     public List<Operation> findAll() {
         List<Operation> operation=new ArrayList<>();
         operationRepository.findAll().forEach(operation::add);
+        if(operation.size() == 0)
+            throw new DataNotFoundException("No operations available.");
         return operation;
     }
 
@@ -54,7 +57,8 @@ public class OperationService {
         operation.forEach(op->System.out.println(df.format(op.getDate())));
 
         operation.stream().filter(op->df.format(op.getDate()).compareTo(from)>=0&&df.format(op.getDate()).compareTo(to)<=0).forEach(operation1::add);
-
+        if(operation1.size() == 0)
+            throw new DataNotFoundException("Wrong format or No operations on the particular dates.");
         return operation1;
     }
 
@@ -68,7 +72,8 @@ public class OperationService {
             operation.forEach(op->System.out.println(df.format(op.getDate())));
 
             operation.stream().filter(op->df.format(op.getDate()).equals(date)).forEach(operation1::add);
-
+            if(operation1.size() == 0)
+                throw new DataNotFoundException("Wrong format or No operations on the particular date.");
             return operation1;
         }
 }
