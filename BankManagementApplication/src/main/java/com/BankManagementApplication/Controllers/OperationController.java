@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class OperationController {
     }
 
     @GetMapping("/onDate")
-    public List<Operation> onDate(@RequestParam String date){
+    public List<Operation> onDate(@RequestParam String date) throws ParseException {
         return operationService.findOnDate(date);
     }
 
     @GetMapping("/fromAndToDate")
-    public List<Operation> fromAndToDate(@RequestParam String from, @RequestParam String to){
+    public List<Operation> fromAndToDate(@RequestParam String from, @RequestParam String to) throws ParseException {
         return operationService.findFromAndToDate(from,to);
     }
 }

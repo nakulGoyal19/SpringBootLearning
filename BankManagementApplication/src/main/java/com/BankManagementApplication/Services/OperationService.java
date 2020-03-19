@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,11 @@ public class OperationService {
 
     @Autowired
     UserRepository userRepository;
+
+    public OperationService(OperationRepository operationRepository, UserRepository userRepository) {
+        this.operationRepository = operationRepository;
+        this.userRepository = userRepository;
+    }
 
     public void addOperationAddUser(Date time, String description, UserProfile userProfile) {
         Operation operation = new Operation();
@@ -48,8 +54,12 @@ public class OperationService {
         return operation;
     }
 
-    public List<Operation> findFromAndToDate(String from,String to) {
+    public List<Operation> findFromAndToDate(String from,String to) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        //To check String format
+        Date javaDate = df.parse(from);
+        javaDate = df.parse(to);
 
         List<Operation> operation=new ArrayList<>();
         operationRepository.findAll().forEach(operation::add);
@@ -58,13 +68,15 @@ public class OperationService {
 
         operation.stream().filter(op->df.format(op.getDate()).compareTo(from)>=0&&df.format(op.getDate()).compareTo(to)<=0).forEach(operation1::add);
         if(operation1.size() == 0)
-            throw new DataNotFoundException("Wrong format or No operations on the particular dates.");
+            throw new DataNotFoundException("No operations on the particular dates.");
         return operation1;
     }
 
-        public List<Operation> findOnDate(String date) {
+        public List<Operation> findOnDate(String date) throws ParseException {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            df.setLenient(false);
 
+            Date javaDate = df.parse(date);
 
             List<Operation> operation=new ArrayList<>();
             operationRepository.findAll().forEach(operation::add);
@@ -73,7 +85,7 @@ public class OperationService {
 
             operation.stream().filter(op->df.format(op.getDate()).equals(date)).forEach(operation1::add);
             if(operation1.size() == 0)
-                throw new DataNotFoundException("Wrong format or No operations on the particular date.");
+                throw new DataNotFoundException("No operations on the particular date.");
             return operation1;
         }
 }
