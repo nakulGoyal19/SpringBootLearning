@@ -16,9 +16,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    private List<UserProfile> users=new ArrayList<>( Arrays.asList(new UserProfile("00001", "Nakul", "Goyal", 2000),
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    //    private List<UserProfile> users=new ArrayList<>( Arrays.asList(new UserProfile("00001", "Nakul", "Goyal", 2000),
 //            new UserProfile("00002", "Rahul", "Goyal", 2000),
 //            new UserProfile("00003", "Anant", "Shibe", 2000)));
+
 
     public List<UserProfile> getAllUsersData(){
         List<UserProfile> users=new ArrayList<>();
@@ -28,7 +33,11 @@ public class UserService {
         return users;
     }
 
-    public void addUser(UserProfile userProfile){
+    public void addUser(UserProfile userProfile)
+    {
+        UserProfile up = userRepository.findByAccountNumber(userProfile.getAccountNumber());
+        if(up != null)
+            throw new DataNotFoundException("Duplicate account number.");
         userRepository.save(userProfile);
     }
 
