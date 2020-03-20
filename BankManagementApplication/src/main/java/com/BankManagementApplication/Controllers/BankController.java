@@ -57,8 +57,8 @@ public class BankController {
         return res;
     }
 
-    @DeleteMapping("/deleteUser")
-    public void deleteUser(@RequestParam String accountNumber){
-        userService.deleteUser(accountNumber);
-    }
+//    @DeleteMapping("/deleteUser")
+//    public void deleteUser(@RequestParam String accountNumber){
+//        userService.deleteUser(accountNumber);
+//    }
 }

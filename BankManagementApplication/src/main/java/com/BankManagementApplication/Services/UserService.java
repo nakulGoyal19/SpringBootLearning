@@ -1,6 +1,8 @@
 package com.BankManagementApplication.Services;
 
 import com.BankManagementApplication.Exception.DataNotFoundException;
+import com.BankManagementApplication.Exception.DuplicateIdException;
+import com.BankManagementApplication.Exception.InsufficientBalanceException;
 import com.BankManagementApplication.Repositories.UserRepository;
 import com.BankManagementApplication.Models.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,10 @@ public class UserService {
     {
         UserProfile up = userRepository.findByAccountNumber(userProfile.getAccountNumber());
         if(up != null)
-            throw new DataNotFoundException("Duplicate account number.");
+            throw new DuplicateIdException("Duplicate account number.");
+        //System.out.println("hello there");
+        if(userProfile.getFirstName()==null||userProfile.getLastName()==null||userProfile.getBalance()==null)
+            throw new NullPointerException("Data Fields can't be kept null");
         userRepository.save(userProfile);
     }
 
@@ -67,16 +72,16 @@ public class UserService {
 
         UserProfile temp = this.getUserByAccountNumber(accountNumber);
         if(temp.getBalance()<amount)
-            return "Insufficient balance";
+            throw new InsufficientBalanceException("Insufficient Balance");
         temp.setBalance(temp.getBalance()-amount);
         userRepository.save(temp);
         return "Debit successful";
     }
 
-    public String deleteUser(String accountNumber) {
-        UserProfile temp = this.getUserByAccountNumber(accountNumber);
-        userRepository.deleteById(accountNumber);
-        return "Successfully deleted";
-    }
+//    public String deleteUser(String accountNumber) {
+//        UserProfile temp = this.getUserByAccountNumber(accountNumber);
+//        userRepository.delete(temp);
+//        return "Successfully deleted";
+//    }
 
 }
