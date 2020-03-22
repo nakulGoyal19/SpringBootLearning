@@ -19,6 +19,10 @@ public class OperationController {
     @Autowired
     OperationService  operationService;
 
+    public OperationController(OperationService operationService) {
+        this.operationService = operationService;
+    }
+
     @GetMapping("/allOperations")
     public List<Operation> getAllOperations(){
         return operationService.findAll();

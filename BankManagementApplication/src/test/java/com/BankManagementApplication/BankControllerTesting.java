@@ -2,6 +2,7 @@ package com.BankManagementApplication;
 
 import com.BankManagementApplication.Controllers.BankController;
 import com.BankManagementApplication.Exception.DataNotFoundException;
+import com.BankManagementApplication.Exception.InsufficientBalanceException;
 import com.BankManagementApplication.Models.UserProfile;
 import com.BankManagementApplication.Services.OperationService;
 import com.BankManagementApplication.Services.UserService;
@@ -80,6 +81,28 @@ public class BankControllerTesting {
         assertThrows(InvalidNameException.class,()->bankController.getUserByFirstName("Nakul0"));
     }
 
-    
+    @Test
+    public void creditTesting(){
+        Mockito.when(userService.credit("00001",1000)).thenReturn("credit successful");
+        assertEquals("credit successful",bankController.credit("00001",1000));
+
+        Mockito.when(userService.credit("00021",1000)).thenThrow(DataNotFoundException.class);
+        assertThrows(DataNotFoundException.class,()->bankController.credit("00021",1000));
+
+
+
+    }
+
+    @Test
+    public void debitTesting(){
+        Mockito.when(userService.debit("00001",1000)).thenReturn("debit successful");
+        assertEquals("debit successful",bankController.debit("00001",1000));
+
+        Mockito.when(userService.debit("00021",1000)).thenThrow(DataNotFoundException.class);
+        assertThrows(DataNotFoundException.class,()->bankController.debit("00021",1000));
+
+        Mockito.when(userService.debit("00021",10000)).thenThrow(InsufficientBalanceException.class);
+        assertThrows(InsufficientBalanceException.class,()->bankController.debit("00021",10000));
+    }
 
 }

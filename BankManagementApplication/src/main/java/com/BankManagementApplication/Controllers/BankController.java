@@ -79,6 +79,7 @@ public class BankController {
     @PutMapping("/credit")
     public String credit(@RequestParam String accountNumber,@RequestParam Integer creditAmount){
         String res = userService.credit(accountNumber,creditAmount);
+        if(res == "credit successful")
             operationService.addOperation(Calendar.getInstance().getTime(),"amount credited",accountNumber);
         return res;
     }
