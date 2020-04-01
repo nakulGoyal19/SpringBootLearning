@@ -12,7 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
-public class KafkaConfiguration {
+public class KafkaConfigurationProducer {
     
     @Bean
     public ProducerFactory<String,String> producerFactory(){
