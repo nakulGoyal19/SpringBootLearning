@@ -5,10 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class UserProfile {
+public class UserProfile implements Serializable {
     @Id
     private String accountNumber;
     @NotNull
